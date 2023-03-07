@@ -1,0 +1,14 @@
+import { ILogin } from "./i-login";
+
+export type BuildLoginOption = {
+    account: {
+        name: string;
+        password: string;
+    };
+};
+
+export abstract class LoginFactoryBase {
+    public static ctor = 'LoginFactoryBase';
+
+    public abstract build(opt: BuildLoginOption): ILogin
+}
