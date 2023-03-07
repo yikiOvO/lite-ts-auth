@@ -1,6 +1,10 @@
-export type AccountLogin = {
+export type respAccountLogin = {
     name: string;
     password: string;
+}
+export type respAppLogin = {
+    id: string;
+    secret: string;
 }
 export type AccountLoginResponse = {
     id: string,
@@ -18,7 +22,6 @@ export type AccountVerify = {
 }
 
 export interface ILogin {
-    login(v: any): Promise<any>;
-    register(v: AccountRegister): Promise<number>;
-    verify(v: AccountVerify): Promise<number>;
+    login(): Promise<any>;
 }
+

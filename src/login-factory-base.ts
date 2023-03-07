@@ -1,10 +1,14 @@
 import { ILogin } from "./i-login";
 
 export type BuildLoginOption = {
-    account: {
+    account?: {
         name: string;
         password: string;
-    };
+    },
+    app?: {
+        id: string;
+        secret: string;
+    }
 };
 
 export abstract class LoginFactoryBase {
