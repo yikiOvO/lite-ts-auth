@@ -1,6 +1,7 @@
 import { AjaxRpc, RpcBase, RpcCallOption } from 'lite-ts-ajax';
-import { BuildLoginOption } from './login-factory-base';
+
 import { ILogin } from './i-login';
+import { BuildLoginOption } from './login-factory-base';
 
 export type AccountLoginResponse = {
     id: string,
@@ -26,8 +27,8 @@ export class AccountLogin implements ILogin {
             route: '/account/login',
             body: { ...this.m_opt }
         } as RpcCallOption)
-        AjaxRpc.header['H-T'] = resp?.data.accessToken;
-        return resp?.data;
+        AjaxRpc.header['H-T'] = resp.data?.accessToken;
+        return resp.data;
     }
 
     public async register() {
@@ -35,7 +36,7 @@ export class AccountLogin implements ILogin {
             route: '/account/register',
             body: { ...this.m_opt }
         })
-        return resp?.err;
+        return resp.err;
     }
 
     public async verify(v: AccountVerify) {
@@ -47,6 +48,6 @@ export class AccountLogin implements ILogin {
                 userID: v.userID
             }
         })
-        return resp?.err;
+        return resp.err;
     }
 }

@@ -1,8 +1,9 @@
 import { RpcBase } from 'lite-ts-ajax';
+
 import { AccountLogin } from './account-login';
 import { appLogin } from './app-login';
-import { BuildLoginOption, LoginFactoryBase } from './login-factory-base';
 import { ILogin } from './i-login';
+import { BuildLoginOption, LoginFactoryBase } from './login-factory-base';
 
 export class LoginFactory extends LoginFactoryBase {
     public constructor(

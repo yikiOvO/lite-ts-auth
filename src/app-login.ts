@@ -1,6 +1,7 @@
 import { AjaxRpc, RpcBase } from 'lite-ts-ajax';
-import { BuildLoginOption } from './login-factory-base';
+
 import { ILogin } from './i-login';
+import { BuildLoginOption } from './login-factory-base';
 
 export type AccountLoginResponse = {
     id: string,
@@ -19,7 +20,7 @@ export class appLogin implements ILogin {
             route: '/account/login',
             body: { ...this.m_opt }
         })
-        AjaxRpc.header['H-T'] = resp?.data.accessToken;
-        return resp?.data;
+        AjaxRpc.header['H-T'] = resp.data?.accessToken;
+        return resp.data;
     }
 }
