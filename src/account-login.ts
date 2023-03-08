@@ -27,7 +27,9 @@ export class AccountLogin implements ILogin {
             route: '/account/login',
             body: { ...this.m_Opt }
         } as RpcCallOption)
-        AjaxRpc.header['H-T'] = resp.data?.accessToken;
+
+        if (!resp.err && resp.data)
+            AjaxRpc.header['H-T'] = resp.data.accessToken;
         return resp.data;
     }
 

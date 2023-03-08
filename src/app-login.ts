@@ -20,7 +20,9 @@ export class appLogin implements ILogin {
             route: '/account/login',
             body: { ...this.m_Opt }
         })
-        AjaxRpc.header['H-T'] = resp.data?.accessToken;
+        
+        if (!resp.err && resp.data)
+            AjaxRpc.header['H-T'] = resp.data.accessToken;
         return resp.data;
     }
 }
