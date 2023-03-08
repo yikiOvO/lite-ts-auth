@@ -1,6 +1,5 @@
-
 import { AjaxRpc } from 'lite-ts-ajax';
-import { AccountLogin } from './ account-login';
+import { AccountLogin } from './account-login';
 import { LoginFactory as Self } from './login-factory';
 
 describe('src/rpc.ts', () => {

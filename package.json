@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ahl5esoft/lite-ts-auth#readme",
   "keywords": [
     "ts",
-    "ajax"
+    "auth"
   ],
   "license": "GPL-3.0",
   "main": "./dist/index.js",
@@ -38,6 +38,6 @@
   },
   "version": "1.0.0",
   "dependencies": {
-    "lite-ts-auth": "^1.0.0"
+    "lite-ts-ajax": "^1.0.1"
   }
 }

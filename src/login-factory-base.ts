@@ -1,4 +1,4 @@
-import { ILogin } from "./i-login";
+import { ILogin } from './i-login';
 
 export type BuildLoginOption = {
     account?: {
@@ -14,5 +14,5 @@ export type BuildLoginOption = {
 export abstract class LoginFactoryBase {
     public static ctor = 'LoginFactoryBase';
 
-    public abstract build(opt: BuildLoginOption): ILogin
+    public abstract build(opt: BuildLoginOption): ILogin;
 }
