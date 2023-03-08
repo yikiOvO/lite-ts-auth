@@ -1,6 +1,12 @@
-import { AccountLoginResponse, ILogin } from "./i-login";
-import { AjaxRpc, RpcBase } from "lite-ts-ajax";
-import { BuildLoginOption } from "./login-factory-base";
+import { AjaxRpc, RpcBase } from 'lite-ts-ajax';
+import { BuildLoginOption } from './login-factory-base';
+import { ILogin } from './i-login';
+
+export type AccountLoginResponse = {
+    id: string,
+    accessToken: string,
+    isAuth: boolean
+}
 
 export class appLogin implements ILogin {
     public constructor(
@@ -8,12 +14,12 @@ export class appLogin implements ILogin {
         private m_Rpc: RpcBase
     ) { }
 
-    public async login(): Promise<any> {
-        const resp = await this.m_Rpc.callWithoutThrow<AccountLoginResponse>({
+    public async login() {
+        const resp = await this.m_Rpc?.callWithoutThrow<AccountLoginResponse>({
             route: '/account/login',
             body: { ...this.m_opt }
         })
-        AjaxRpc.header['H-T'] = resp.data.accessToken;
-        return resp.data;
+        AjaxRpc.header['H-T'] = resp?.data.accessToken;
+        return resp?.data;
     }
 }
