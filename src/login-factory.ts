@@ -5,7 +5,6 @@ import { appLogin } from './app-login';
 import { ILogin } from './i-login';
 import { BuildLoginOption, LoginFactoryBase } from './login-factory-base';
 
-
 export class LoginFactory extends LoginFactoryBase {
     public constructor(
         private m_Rpc: RpcBase
