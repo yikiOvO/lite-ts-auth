@@ -11,14 +11,14 @@ export type AccountLoginResponse = {
 
 export class appLogin implements ILogin {
     public constructor(
-        private m_opt: BuildLoginOption,
+        private m_Opt: BuildLoginOption,
         private m_Rpc: RpcBase
     ) { }
 
     public async login() {
         const resp = await this.m_Rpc?.callWithoutThrow<AccountLoginResponse>({
             route: '/account/login',
-            body: { ...this.m_opt }
+            body: { ...this.m_Opt }
         })
         AjaxRpc.header['H-T'] = resp.data?.accessToken;
         return resp.data;

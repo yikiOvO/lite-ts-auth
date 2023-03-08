@@ -17,7 +17,7 @@ export type AccountVerify = {
 
 export class AccountLogin implements ILogin {
     public constructor(
-        private m_opt: BuildLoginOption,
+        private m_Opt: BuildLoginOption,
         private m_Rpc: RpcBase
     ) { }
 
@@ -25,7 +25,7 @@ export class AccountLogin implements ILogin {
         const resp = await this.m_Rpc?.callWithoutThrow<AccountLoginResponse>({
             method: 'POST',
             route: '/account/login',
-            body: { ...this.m_opt }
+            body: { ...this.m_Opt }
         } as RpcCallOption)
         AjaxRpc.header['H-T'] = resp.data?.accessToken;
         return resp.data;
@@ -34,7 +34,7 @@ export class AccountLogin implements ILogin {
     public async register() {
         const resp = await this.m_Rpc?.callWithoutThrow<number>({
             route: '/account/register',
-            body: { ...this.m_opt }
+            body: { ...this.m_Opt }
         })
         return resp.err;
     }
