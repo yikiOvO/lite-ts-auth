@@ -1,3 +1,5 @@
+import { LoginResponse } from './login-response';
+
 export interface ILogin {
-    login(): Promise<any>;
+    login<T extends LoginResponse>(): Promise<T>;
 }
