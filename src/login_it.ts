@@ -15,8 +15,8 @@ describe('src/rpc.ts', () => {
                 }
             });
             const res = await buildRpc.login();
-            (buildRpc as AccountLogin).register
-            console.log(res);
+            const res1 = await (buildRpc as AccountLogin).register();
+            console.log(res,res1);
         });
     });
 });
