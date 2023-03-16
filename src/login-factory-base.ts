@@ -9,10 +9,7 @@ export type BuildLoginOption = {
         id: string;
         secret: string;
     }
-    googlePlay?:{
-        id: string;
-        secret: string;
-    }
+    googlePlay?
 };
 
 export abstract class LoginFactoryBase {

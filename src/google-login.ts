@@ -1,44 +1,25 @@
-import { AjaxRpc, RpcBase } from 'lite-ts-ajax';
+import { AjaxRpc } from 'lite-ts-ajax';
 
 import { ILogin } from './i-login';
-import { BuildLoginOption } from './login-factory-base';
-
-export type GoogleLoginResponse = {
-    id: string,
-    accessToken: string,
-    isAuth: boolean
-}
-
-export type GoogleVerify = {
-    idCard: string;
-    realName: string;
-    userID: string;
-}
-
 
 export class GoogleLogin implements ILogin {
-    public constructor(
-        private m_Opt: BuildLoginOption,
-        private m_Rpc: RpcBase
-    ) { }
+    public static jsb: any;
 
     public async login() {
-        const resp = await this.m_Rpc?.callWithoutThrow<GoogleLoginResponse>({
-            route: '/account/login',
-            body: { ...this.m_Opt }
-        })
-        
-        if (!resp.err && resp.data)
-            AjaxRpc.header['H-T'] = resp.data.accessToken;
-        return resp.data;
+        window['loginCb'] = (e, r) => {
+            if (e)
+                return new Error(e);
+            AjaxRpc.header['H-T'] = r.accessToken;
+            return r;
+        }
+        const data: any = {};
+        data.callback = 'window.loginCb';
+        //jsb.reflection.callStaticMethod方法可能会cc层java交互方案修改而改变,后续优化需要封装
+        try {
+            const resp = await GoogleLogin.jsb.reflection.callStaticMethod('com/ily/core/jsb/JSBridgeManager', 'googleLogin', '(Ljava/lang/String;)V', data);
+            return resp;
+        } catch (error) {
+            return error;
+        }
     }
-
-    public async register() {
-
-    }
-
-    public async verify(v: GoogleVerify) {
-        console.log('v',v)
-    }
-    
 }
