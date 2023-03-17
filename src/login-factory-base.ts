@@ -10,7 +10,7 @@ export type BuildLoginOption = Partial<{
         secret: string;
     },
     googlePlay?: {
-        accessToken: string;
+        idToken: string;
     }
 }>;
 
