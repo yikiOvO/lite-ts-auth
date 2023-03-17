@@ -1,4 +1,4 @@
-import { RpcBase } from 'lite-ts-ajax';
+import { RpcBase } from 'lite-ts-rpc';
 
 import { AccountLogin } from './account-login';
 import { AppLogin } from './app-login';

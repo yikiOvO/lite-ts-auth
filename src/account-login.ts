@@ -1,13 +1,9 @@
-import { AjaxRpc, RpcBase, RpcCallOption } from 'lite-ts-ajax';
+import { AjaxRpc } from 'lite-ts-ajax';
+import { Header, RpcBase } from 'lite-ts-rpc';
 
 import { ILogin } from './i-login';
 import { BuildLoginOption } from './login-factory-base';
-
-export type AccountLoginResponse = {
-    id: string,
-    accessToken: string,
-    isAuth: boolean
-}
+import { LoginResponse } from './login-response';
 
 export type AccountVerify = {
     idCard: string;
@@ -18,18 +14,16 @@ export type AccountVerify = {
 export class AccountLogin implements ILogin {
     public constructor(
         private m_Opt: BuildLoginOption,
-        private m_Rpc: RpcBase
+        private m_Rpc: RpcBase,
     ) { }
 
-    public async login() {
-        const resp = await this.m_Rpc?.callWithoutThrow<AccountLoginResponse>({
-            method: 'POST',
+    public async login<T extends LoginResponse>() {
+        const resp = await this.m_Rpc.callWithoutThrow<T>({
             route: '/account/login',
             body: { ...this.m_Opt }
-        } as RpcCallOption)
-
-        if (!resp.err && resp.data)
-            AjaxRpc.header['H-T'] = resp.data.accessToken;
+        });
+        if (!resp.err)
+            AjaxRpc.header[Header.authToken] = resp.data?.accessToken;
         return resp.data;
     }
 
@@ -44,11 +38,7 @@ export class AccountLogin implements ILogin {
     public async verify(v: AccountVerify) {
         const resp = await this.m_Rpc?.callWithoutThrow<number>({
             route: '/account/verify',
-            body: {
-                idCard: v.idCard,
-                realName: v.realName,
-                userID: v.userID
-            }
+            body: v
         })
         return resp.err;
     }
