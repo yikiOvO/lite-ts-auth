@@ -8,15 +8,16 @@ import { BuildLoginOption, LoginFactoryBase } from './login-factory-base';
 
 export class LoginFactory extends LoginFactoryBase {
     public constructor(
-        private m_Rpc?: RpcBase
+        private m_Rpc: RpcBase
     ) {
         super();
     }
 
     public build(opt: BuildLoginOption): ILogin {
-        if (opt.googlePlay)
-            return new GoogleLogin();
-        const ctor = opt.account ? AccountLogin : AppLogin;
+        const ctor = opt.account && AccountLogin
+            || opt.account && AppLogin
+            || opt.googlePlay && GoogleLogin
+
         return new ctor(opt, this.m_Rpc);
     }
 }
