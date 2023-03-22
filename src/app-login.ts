@@ -5,6 +5,11 @@ import { ILogin } from './i-login';
 import { BuildLoginOption } from './login-factory-base';
 import { LoginResponse } from './login-response';
 
+export type AccountLoginResponse = {
+    id: string,
+    accessToken: string,
+    isAuth: boolean
+}
 export class AppLogin implements ILogin {
     public constructor(
         private m_Opt: BuildLoginOption,
