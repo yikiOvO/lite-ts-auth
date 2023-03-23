@@ -17,7 +17,7 @@ export class GoogleLogin implements ILogin {
     ) { }
 
     public async login() {
-        window['loginCb'] = async <T extends LoginResponse>(e) => {
+        globalThis['loginCb'] = async <T extends LoginResponse>(e) => {
             if (e)
                 return new Error(e);
 
@@ -31,7 +31,7 @@ export class GoogleLogin implements ILogin {
         }
 
         const data: any = {};
-        data.callback = 'window.loginCb';
+        data.callback = 'globalThis.loginCb';
         try {
             if (!GoogleLogin.jsb)
                 throw new Error('GoogleLogin.jsb未绑定');
