@@ -38,7 +38,7 @@ export class GoogleLogin implements ILogin {
             const resp = await GoogleLogin.jsb.reflection.callStaticMethod('com/ily/core/jsb/JSBridgeManager', 'googleLogin', '(Ljava/lang/String;)V', data);
             return resp;
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error);
         }
     }
 }
