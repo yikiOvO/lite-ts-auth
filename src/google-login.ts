@@ -34,11 +34,11 @@ export class GoogleLogin implements ILogin {
         data.callback = 'window.loginCb';
         try {
             if (!GoogleLogin.jsb)
-                return new Error('GoogleLogin.jsb未绑定');
+                throw new Error('GoogleLogin.jsb未绑定');
             const resp = await GoogleLogin.jsb.reflection.callStaticMethod('com/ily/core/jsb/JSBridgeManager', 'googleLogin', '(Ljava/lang/String;)V', data);
             return resp;
         } catch (error) {
-            return error;
+            throw new Error(error)
         }
     }
 }
