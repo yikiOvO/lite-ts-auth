@@ -9,9 +9,8 @@ export type BuildLoginOption = Partial<{
         id: string;
         secret: string;
     },
-    googlePlay?: {
-        idToken: string;
-    }
+    googlePlay?,
+    appleLogin?
 }>;
 
 export abstract class LoginFactoryBase {
