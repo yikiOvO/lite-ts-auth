@@ -1,52 +1,15 @@
-import { AjaxRpc } from 'lite-ts-ajax';
-import { RpcBase, Header } from 'lite-ts-rpc';
+import { NativeLoginBase } from "./native-login-base";
 
-import { ILogin } from './i-login';
-import { BuildLoginOption } from './login-factory-base';
-import { LoginResponse } from './login-response';
-
-export type GoogleLoginResponse = {
+type GoogleLoginResponse = {
     idToken: string,
 }
 
-export class GoogleLogin implements ILogin {
-    public static jsb: any;
+export class GoogleLogin extends NativeLoginBase {
+    protected getLoginBody(loginData: GoogleLoginResponse): any {
+        return { google: { idToken: loginData.idToken } };
+    }
 
-    public constructor(
-        private m_Opt: BuildLoginOption,
-        private m_Rpc: RpcBase,
-    ) { }
-
-
-    public async login() {
-        globalThis['loginCb'] = async <T extends LoginResponse>(e, r: GoogleLoginResponse) => {
-            globalThis['loginCb'] = undefined;
-            if (e)
-                return new Error(e);
-
-            const resp = await this.m_Rpc.callWithoutThrow<T>({
-                route: '/account/login',
-                body: {
-                    ...this.m_Opt,
-                    ...{ googlePaly: { idToken: r.idToken } }
-                }
-            });
-            if (!resp.err)
-                AjaxRpc.header[Header.authToken] = resp.data?.accessToken;
-            return resp.data;
-        }
-
-        let data: any = {};
-        data.callback = 'globalThis.loginCb';
-        data = JSON.stringify(data);
-
-        try {
-            if (!GoogleLogin.jsb)
-                throw new Error('GoogleLogin.jsb未绑定');
-            const resp = await GoogleLogin.jsb.reflection.callStaticMethod('com/ily/core/jsb/JSBridgeManager', 'googleLogin', '(Ljava/lang/String;)V', data);
-            return resp;
-        } catch (error) {
-            throw new Error(error);
-        }
+    protected getLoginPlatform(): string {
+        return 'Google';
     }
 }
