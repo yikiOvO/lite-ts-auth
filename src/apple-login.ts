@@ -5,11 +5,10 @@ import { ILogin } from './i-login';
 import { BuildLoginOption } from './login-factory-base';
 import { LoginResponse } from './login-response';
 
-export type GoogleLoginResponse = {
-    idToken: string,
+export type AppleLoginResponse = {
+    identityToken: string,
 }
-
-export class GoogleLogin implements ILogin {
+export class AppleLogin implements ILogin {
     public static jsb: any;
 
     public constructor(
@@ -17,9 +16,8 @@ export class GoogleLogin implements ILogin {
         private m_Rpc: RpcBase,
     ) { }
 
-
     public async login() {
-        globalThis['loginCb'] = async <T extends LoginResponse>(e, r: GoogleLoginResponse) => {
+        globalThis['loginCb'] = async <T extends LoginResponse>(e, r: AppleLoginResponse) => {
             globalThis['loginCb'] = undefined;
             if (e)
                 return new Error(e);
@@ -28,7 +26,7 @@ export class GoogleLogin implements ILogin {
                 route: '/account/login',
                 body: {
                     ...this.m_Opt,
-                    ...{ googlePaly: { idToken: r.idToken } }
+                    ...{ appleLogin: { identityToken: r.identityToken } }
                 }
             });
             if (!resp.err)
@@ -38,15 +36,17 @@ export class GoogleLogin implements ILogin {
 
         let data: any = {};
         data.callback = 'globalThis.loginCb';
+        data.loginPlatform = 'Apple';
         data = JSON.stringify(data);
 
         try {
-            if (!GoogleLogin.jsb)
+            if (!AppleLogin.jsb)
                 throw new Error('GoogleLogin.jsb未绑定');
-            const resp = await GoogleLogin.jsb.reflection.callStaticMethod('com/ily/core/jsb/JSBridgeManager', 'googleLogin', '(Ljava/lang/String;)V', data);
+            const resp = await AppleLogin.jsb.reflection.callStaticMethod('JSBridgeManager', "emitEventLogin:", data);
             return resp;
         } catch (error) {
             throw new Error(error);
         }
     }
 }
+
