@@ -1,11 +1,8 @@
 import { NativeLoginBase } from './native-login-base';
+import { NativeLoginResponse } from './login-response';
 
-type AppleLoginResponse = {
-    identityToken: string,
-}
-
-export class AppleLogin extends NativeLoginBase {
-    protected getLoginBody(loginData: AppleLoginResponse) {
+export class AppleLogin<T extends NativeLoginResponse> extends NativeLoginBase<T>{
+    protected getLoginBody(loginData: T) {
         return {
             apple: {
                 identityToken: loginData.identityToken
@@ -13,7 +10,14 @@ export class AppleLogin extends NativeLoginBase {
         };
     }
 
-    protected getLoginPlatform() {
-        return 'Apple';
+    protected getLoginFunc() {
+        NativeLoginBase.jsb.reflection.callStaticMethod(
+            'JSBridgeManager',
+            'emitEventLogin:',
+            JSON.stringify({
+                callback: 'globalThis.loginCb',
+                loginPlatform: 'Apple'
+            })
+        );
     }
 }
