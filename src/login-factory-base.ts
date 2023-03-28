@@ -9,8 +9,8 @@ export type BuildLoginOption = Partial<{
         id: string;
         secret: string;
     },
-    google,
-    apple
+    google: any,
+    apple: any
 }>;
 
 export abstract class LoginFactoryBase {
