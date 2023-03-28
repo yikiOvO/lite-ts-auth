@@ -1,16 +1,16 @@
 import { ILogin } from './i-login';
 
 export type BuildLoginOption = Partial<{
-    account?: {
+    account: {
         name: string;
         password: string;
     },
-    app?: {
+    app: {
         id: string;
         secret: string;
     },
-    google?,
-    apple?
+    google,
+    apple
 }>;
 
 export abstract class LoginFactoryBase {

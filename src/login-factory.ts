@@ -18,7 +18,7 @@ export class LoginFactory extends LoginFactoryBase {
         const ctor = opt.account && AccountLogin
             || opt.account && AppLogin
             || opt.google && GoogleLogin
-            || opt.apple && AppleLogin
+            || opt.apple && AppleLogin;
 
         return new ctor(opt, this.m_Rpc);
     }
