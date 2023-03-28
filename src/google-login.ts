@@ -1,11 +1,8 @@
 import { NativeLoginBase } from './native-login-base';
+import { NativeLoginResponse } from './login-response';
 
-type GoogleLoginResponse = {
-    idToken: string,
-}
-
-export class GoogleLogin extends NativeLoginBase {
-    protected getLoginBody(loginData: GoogleLoginResponse) {
+export class GoogleLogin<T extends NativeLoginResponse> extends NativeLoginBase<T> {
+    protected getLoginBody(loginData: T) {
         return {
             google: {
                 idToken: loginData.idToken
@@ -13,7 +10,13 @@ export class GoogleLogin extends NativeLoginBase {
         };
     }
 
-    protected getLoginPlatform() {
-        return 'Google';
+    protected getLoginFunc() {
+        NativeLoginBase.jsb.reflection.callStaticMethod(
+            'om/ily/core/jsb/JSBridgeManager',
+            'googleLogin:',
+            JSON.stringify({
+                callback: 'globalThis.loginCb',
+            })
+        );
     }
 }
