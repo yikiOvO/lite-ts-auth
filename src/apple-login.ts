@@ -1,7 +1,7 @@
-import { NativeLoginBase } from './jsb-login-base';
+import { JsbLoginBase } from './jsb-login-base';
 import { NativeLoginResponse } from './login-response';
 
-export class AppleLogin<T extends NativeLoginResponse> extends NativeLoginBase<T>{
+export class AppleLogin<T extends NativeLoginResponse> extends JsbLoginBase<T>{
     protected getLoginBody(loginData: T) {
         return {
             apple: {
@@ -11,7 +11,7 @@ export class AppleLogin<T extends NativeLoginResponse> extends NativeLoginBase<T
     }
 
     protected getLoginFunc() {
-        NativeLoginBase.jsb.reflection.callStaticMethod(
+        JsbLoginBase.jsb.reflection.callStaticMethod(
             'JSBridgeManager',
             'emitEventLogin:',
             JSON.stringify({

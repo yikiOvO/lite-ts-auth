@@ -1,7 +1,7 @@
-import { NativeLoginBase } from './jsb-login-base';
+import { JsbLoginBase } from './jsb-login-base';
 import { NativeLoginResponse } from './login-response';
 
-export class GoogleLogin<T extends NativeLoginResponse> extends NativeLoginBase<T> {
+export class GoogleLogin<T extends NativeLoginResponse> extends JsbLoginBase<T> {
     protected getLoginBody(loginData: T) {
         return {
             google: {
@@ -11,7 +11,7 @@ export class GoogleLogin<T extends NativeLoginResponse> extends NativeLoginBase<
     }
 
     protected getLoginFunc() {
-        NativeLoginBase.jsb.reflection.callStaticMethod(
+        JsbLoginBase.jsb.reflection.callStaticMethod(
             'om/ily/core/jsb/JSBridgeManager',
             'googleLogin:',
             JSON.stringify({

@@ -5,7 +5,7 @@ import { BuildLoginOption } from './login-factory-base';
 import { ILogin } from './i-login';
 import { LoginResponse } from './login-response';
 
-export abstract class NativeLoginBase<T> implements ILogin {
+export abstract class JsbLoginBase<T> implements ILogin {
     public static jsb: any;
 
     public constructor(
@@ -32,7 +32,7 @@ export abstract class NativeLoginBase<T> implements ILogin {
                 s(resp.data);
             }
 
-            if (!NativeLoginBase.jsb)
+            if (!JsbLoginBase.jsb)
                 return f(`${this.constructor.name}.jsb未绑定`);
 
             this.getLoginFunc();
