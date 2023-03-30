@@ -1,7 +1,6 @@
-import { JsbLoginBase } from './jsb-login-base';
-import { NativeLoginResponse } from './login-response';
+import { JsbLoginBase, JsbLoginResponse } from './jsb-login-base';
 
-export class AppleLogin<T extends NativeLoginResponse> extends JsbLoginBase<T>{
+export class AppleLogin<T extends JsbLoginResponse> extends JsbLoginBase<T>{
     protected getLoginBody(loginData: T) {
         return {
             apple: {
