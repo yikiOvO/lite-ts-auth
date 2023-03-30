@@ -5,11 +5,6 @@ import { BuildLoginOption } from './login-factory-base';
 import { ILogin } from './i-login';
 import { LoginResponse } from './login-response';
 
-export type JsbLoginResponse = Partial<{
-    identityToken: string,
-    idToken: string,
-}>
-
 export abstract class JsbLoginBase<T> implements ILogin {
     public static jsb: any;
 
