@@ -5,7 +5,7 @@ export class AppleLogin<T extends JsbLoginResponse> extends JsbLoginBase<T>{
     protected getLoginBody(loginData: T) {
         return {
             apple: {
-                identityToken: loginData.identityToken
+                code: loginData.identityToken
             }
         };
     }

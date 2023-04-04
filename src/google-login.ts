@@ -5,7 +5,7 @@ export class GoogleLogin<T extends JsbLoginResponse> extends JsbLoginBase<T> {
     protected getLoginBody(loginData: T) {
         return {
             google: {
-                idToken: loginData.idToken
+                code: loginData.idToken
             }
         };
     }
